@@ -1,0 +1,4 @@
+# DO NOT COMMIT THIS FILE
+THREADS_APP_SECRET="paste_threads_app_secret_here"
+DASHBOARD_SECRET="choose_a_long_private_passcode"
+TOKEN_ENCRYPTION_KEY="64_hex_characters_here"
