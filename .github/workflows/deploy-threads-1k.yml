@@ -1,0 +1,33 @@
+name: Deploy THREADS 1K
+
+on:
+  push:
+    branches:
+      - threads-1k-dashboard
+    paths:
+      - "threads-1k-dashboard/**"
+      - ".github/workflows/deploy-threads-1k.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Deploy THREADS 1K Worker
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: threads-1k-dashboard
+          command: deploy
+          secrets: |
+            THREADS_APP_SECRET
+            DASHBOARD_SECRET
+            TOKEN_ENCRYPTION_KEY
+        env:
+          THREADS_APP_SECRET: ${{ secrets.THREADS_APP_SECRET }}
+          DASHBOARD_SECRET: ${{ secrets.DASHBOARD_SECRET }}
+          TOKEN_ENCRYPTION_KEY: ${{ secrets.TOKEN_ENCRYPTION_KEY }}
